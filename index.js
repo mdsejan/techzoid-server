@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config()
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require('mongodb');
-require('dotenv').config()
 
 // MiddleWare
 
@@ -32,6 +32,11 @@ async function run() {
         app.post('/brands', async (req, res) => {
             const newBrand = req.body;
             const result = await brandsCollection.insertOne(newBrand);
+            res.send(result);
+        })
+
+        app.get('/brands', async (req, res) => {
+            const result = await brandsCollection.find().toArray();
             res.send(result);
         })
 
