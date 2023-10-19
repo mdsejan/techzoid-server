@@ -29,7 +29,7 @@ async function run() {
         const productsCollection = client.db('techzoidDB').collection('products');
         const brandsCollection = client.db('techzoidDB').collection('brands');
 
-        // For Brands
+        // For Brands related API
         app.get('/brands', async (req, res) => {
             const result = await brandsCollection.find().toArray();
             res.send(result);
@@ -47,9 +47,15 @@ async function run() {
             res.send(result);
         })
 
-        // For Products
+        // For Products related API
         app.get('/products', async (req, res) => {
             const result = await productsCollection.find().toArray();
+            res.send(result);
+        })
+
+        app.get('/products/:brand', async (req, res) => {
+            const brandId = req.params.brand;
+            const result = await productsCollection.find({ brand: brandId }).toArray();
             res.send(result);
         })
 
