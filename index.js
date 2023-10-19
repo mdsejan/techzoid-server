@@ -29,16 +29,34 @@ async function run() {
         const productsCollection = client.db('techzoidDB').collection('products');
         const brandsCollection = client.db('techzoidDB').collection('brands');
 
+        // For Brands
+        app.get('/brands', async (req, res) => {
+            const result = await brandsCollection.find().toArray();
+            res.send(result);
+        })
+
+
         app.post('/brands', async (req, res) => {
             const newBrand = req.body;
             const result = await brandsCollection.insertOne(newBrand);
             res.send(result);
         })
 
-        app.get('/brands', async (req, res) => {
-            const result = await brandsCollection.find().toArray();
+        // For Products
+        app.get('/products', async (req, res) => {
+            const result = await productsCollection.find().toArray();
             res.send(result);
         })
+
+        app.post('/products', async (req, res) => {
+            const newProduct = req.body;
+            const result = await productsCollection.insertOne(newProduct);
+            res.send(result);
+            console.log(newProduct);
+        })
+
+
+
 
 
 
