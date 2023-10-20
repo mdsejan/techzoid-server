@@ -70,27 +70,27 @@ async function run() {
             res.send(result);
         })
 
-        // app.put('/products/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const filter = { _id: new ObjectId(id) }
-        //     const options = { upsert: true };
-        //     const updatedProduct = req.body;
+        app.put('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updatedProduct = req.body;
 
-        //     const product = {
-        //         $set: {
-        //             name: updatedProduct.name,
-        //             image: updatedProduct.image,
-        //             brand: updatedProduct.brand,
-        //             category: updatedProduct.category,
-        //             price: updatedProduct.price,
-        //             rating: updatedProduct.rating,
-        //             shortDescription: updatedProduct.shortDescription
-        //         }
-        //     }
+            const product = {
+                $set: {
+                    name: updatedProduct.name,
+                    image: updatedProduct.image,
+                    brand: updatedProduct.brand,
+                    category: updatedProduct.category,
+                    price: updatedProduct.price,
+                    rating: updatedProduct.rating,
+                    shortDescription: updatedProduct.shortDescription
+                }
+            }
 
-        //     const result = await productsCollection.updateOne(filter, product, options)
-        //     res.send(result)
-        // })
+            const result = await productsCollection.updateOne(filter, product, options)
+            res.send(result)
+        })
 
 
 
