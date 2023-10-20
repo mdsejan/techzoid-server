@@ -59,11 +59,39 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/product/:id', async (req, res) => {
+            const result = await productsCollection.findOne({ _id: new ObjectId(req.params.id) });
+            res.send(result);
+        })
+
         app.post('/products', async (req, res) => {
             const newProduct = req.body;
             const result = await productsCollection.insertOne(newProduct);
             res.send(result);
         })
+
+        // app.put('/products/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const filter = { _id: new ObjectId(id) }
+        //     const options = { upsert: true };
+        //     const updatedProduct = req.body;
+
+        //     const product = {
+        //         $set: {
+        //             name: updatedProduct.name,
+        //             image: updatedProduct.image,
+        //             brand: updatedProduct.brand,
+        //             category: updatedProduct.category,
+        //             price: updatedProduct.price,
+        //             rating: updatedProduct.rating,
+        //             shortDescription: updatedProduct.shortDescription
+        //         }
+        //     }
+
+        //     const result = await productsCollection.updateOne(filter, product, options)
+        //     res.send(result)
+        // })
+
 
 
 
