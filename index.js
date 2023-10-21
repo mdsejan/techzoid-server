@@ -28,6 +28,7 @@ async function run() {
         // Get the database and collection on which to run the operation
         const productsCollection = client.db('techzoidDB').collection('products');
         const brandsCollection = client.db('techzoidDB').collection('brands');
+        const cartCollection = client.db('techzoidDB').collection('carts');
 
         // For Brands related API
         app.get('/brands', async (req, res) => {
@@ -90,6 +91,22 @@ async function run() {
 
             const result = await productsCollection.updateOne(filter, product, options)
             res.send(result)
+        })
+
+
+
+
+        // For My Cart related API
+        app.get('/mycarts/:user', async (req, res) => {
+            const usermail = req.params.user;
+            const result = await cartCollection.find({ userEmail: usermail }).toArray();
+            res.send(result);
+        })
+
+        app.post('/mycart', async (req, res) => {
+            const newCartProduct = req.body;
+            const result = await cartCollection.insertOne(newCartProduct);
+            res.send(result);
         })
 
 
